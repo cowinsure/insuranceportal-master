@@ -1,0 +1,204 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Insurance Application Details{% endblock %}
+
+{% block content %}
+<div class="body-content px-8 py-10 bg-slate-100 min-h-screen">
+    <div class="max-w-4xl mx-auto bg-white shadow rounded-2xl p-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold text-gray-800">
+                Insurance Application: {{ insurance_application.insurance_number }}
+            </h2>
+            <a href="{% url 'insurance_company_service:insurance_application_list' %}" class="text-blue-600 hover:underline">← Back to list</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-gray-700">
+            <p><strong>Asset ID:</strong> {{ insurance_application.asset.id }}</p>
+            <p><strong>Asset ID:</strong> {{ insurance_application.asset.id }}</p>
+<p><strong>Reference ID:</strong> {{ insurance_application.asset.reference_id }}</p>
+<p><strong>Owner:</strong> {{ insurance_application.asset.owner }}</p>
+<p><strong>Asset Type:</strong> {{ insurance_application.asset.asset_type }}</p>
+<p><strong>Breed:</strong> {{ insurance_application.asset.breed }}</p>
+<p><strong>Color:</strong> {{ insurance_application.asset.color }}</p>
+<p><strong>Gender:</strong> {{ insurance_application.asset.get_gender_display }}</p>
+<p><strong>Age (months):</strong> {{ insurance_application.asset.age_in_months }}</p>
+<p><strong>Weight (kg):</strong> {{ insurance_application.asset.weight_kg }}</p>
+<p><strong>Height:</strong> {{ insurance_application.asset.height }}</p>
+<p><strong>Vaccination Status:</strong> {{ insurance_application.asset.vaccination_status }}</p>
+<p><strong>Last Vaccination Date:</strong> {{ insurance_application.asset.last_vaccination_date }}</p>
+<p><strong>Deworming Status:</strong> {{ insurance_application.asset.deworming_status }}</p>
+<p><strong>Last Deworming Date:</strong> {{ insurance_application.asset.last_deworming_date }}</p>
+<p><strong>Health Issues:</strong> {{ insurance_application.asset.health_issues }}</p>
+<p><strong>Pregnancy Status:</strong> {{ insurance_application.asset.pregnancy_status }}</p>
+<p><strong>Last Date of Calving:</strong> {{ insurance_application.asset.last_date_of_calving }}</p>
+<p><strong>Purchase Date:</strong> {{ insurance_application.asset.purchase_date }}</p>
+<p><strong>Purchase From:</strong> {{ insurance_application.asset.purchase_from }}</p>
+<p><strong>Purchase Amount:</strong> {{ insurance_application.asset.purchase_amount }}</p>
+<p><strong>Created By:</strong> {{ insurance_application.asset.created_by }}</p>
+<p><strong>Updated By:</strong> {{ insurance_application.asset.updated_by }}</p>
+<p><strong>Created At:</strong> {{ insurance_application.asset.created_at }}</p>
+<p><strong>Updated At:</strong> {{ insurance_application.asset.updated_at }}</p>
+<p><strong>Is Active:</strong> {{ insurance_application.asset.is_active }}</p>
+<p><strong>Remarks:</strong> {{ insurance_application.asset.remarks }}</p>
+
+<!-- Media: Preview + Download -->
+{% if insurance_application.asset.special_mark %}
+    <p><strong>Special Mark:</strong><br>
+        <img src="{{ insurance_application.asset.special_mark.url }}" alt="Special Mark" width="200"><br>
+        <a href="{{ insurance_application.asset.special_mark.url }}" download>Download</a>
+    </p>
+{% endif %}
+
+{% if insurance_application.asset.muzzle_video %}
+    <p><strong>Muzzle Video:</strong><br>
+        <video width="320" height="240" controls>
+            <source src="{{ insurance_application.asset.muzzle_video.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video><br>
+        <a href="{{ insurance_application.asset.muzzle_video.url }}" download>Download</a>
+    </p>
+{% endif %}
+
+{% if insurance_application.asset.left_side_image %}
+    <p><strong>Left Side Image:</strong><br>
+        <img src="{{ insurance_application.asset.left_side_image.url }}" width="200"><br>
+        <a href="{{ insurance_application.asset.left_side_image.url }}" download>Download</a>
+    </p>
+{% endif %}
+
+{% if insurance_application.asset.right_side_image %}
+    <p><strong>Right Side Image:</strong><br>
+        <img src="{{ insurance_application.asset.right_side_image.url }}" width="200"><br>
+        <a href="{{ insurance_application.asset.right_side_image.url }}" download>Download</a>
+    </p>
+{% endif %}
+{% if insurance_application.asset.challan_paper %}
+  <p><strong>Challan Paper:</strong><br>
+    {% with file_url=insurance_application.asset.challan_paper.url %}
+      {% with file_check=file_url|default_if_none:""|lower %}
+        {% if ".pdf" in file_check %}
+          <embed src="{{ file_url }}" width="100%" height="400px" type="application/pdf"><br>
+        {% elif ".jpg" in file_check or ".jpeg" in file_check or ".png" in file_check %}
+          <img src="{{ file_url }}" alt="Challan Paper" width="200"><br>
+        {% elif ".mp4" in file_check %}
+          <video width="320" height="240" controls>
+            <source src="{{ file_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video><br>
+        {% else %}
+          <p>Unsupported file format for preview.</p>
+        {% endif %}
+        <a href="{{ file_url }}" download>Download</a>
+      {% endwith %}
+    {% endwith %}
+  </p>
+{% endif %}
+
+{% if insurance_application.asset.vet_certificate %}
+  <p><strong>Vet Certificate:</strong><br>
+    {% with file_url=insurance_application.asset.vet_certificate.url %}
+      {% with file_check=file_url|default_if_none:""|lower %}
+        {% if ".pdf" in file_check %}
+          <embed src="{{ file_url }}" width="100%" height="400px" type="application/pdf"><br>
+        {% elif ".jpg" in file_check or ".jpeg" in file_check or ".png" in file_check %}
+          <img src="{{ file_url }}" alt="Vet Certificate" width="200"><br>
+        {% elif ".mp4" in file_check %}
+          <video width="320" height="240" controls>
+            <source src="{{ file_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video><br>
+        {% else %}
+          <p>Unsupported file format for preview.</p>
+        {% endif %}
+        <a href="{{ file_url }}" download>Download</a>
+      {% endwith %}
+    {% endwith %}
+  </p>
+{% endif %}
+
+{% if insurance_application.asset.chairman_certificate %}
+  <p><strong>Chairman Certificate:</strong><br>
+    {% with file_url=insurance_application.asset.chairman_certificate.url %}
+      {% with file_check=file_url|default_if_none:""|lower %}
+        {% if ".pdf" in file_check %}
+          <embed src="{{ file_url }}" width="100%" height="400px" type="application/pdf"><br>
+        {% elif ".jpg" in file_check or ".jpeg" in file_check or ".png" in file_check %}
+          <img src="{{ file_url }}" alt="Chairman Certificate" width="200"><br>
+        {% elif ".mp4" in file_check %}
+          <video width="320" height="240" controls>
+            <source src="{{ file_url }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video><br>
+        {% else %}
+          <p>Unsupported file format for preview.</p>
+        {% endif %}
+        <a href="{{ file_url }}" download>Download</a>
+      {% endwith %}
+    {% endwith %}
+  </p>
+{% endif %}
+
+
+{% if insurance_application.asset.image_with_owner %}
+    <p><strong>Image With Owner:</strong><br>
+        <img src="{{ insurance_application.asset.image_with_owner.url }}" width="200"><br>
+        <a href="{{ insurance_application.asset.image_with_owner.url }}" download>Download</a>
+    </p>
+{% endif %}
+
+            <p><strong>Insurance Provider:</strong> {{ insurance_application.insurance_provider }}</p>
+
+            <p><strong>Sum Insured:</strong> {{ insurance_application.sum_insured }}</p>
+            <p><strong>Premium Amount:</strong> {{ insurance_application.premium_amount }}</p>
+
+            <p><strong>Status:</strong>
+                <span class="inline-block bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs">
+                    {{ insurance_application.get_insurance_status_display }}
+                </span>
+            </p>
+            <p><strong>View Count:</strong> {{ insurance_application.view_count }}</p>
+
+            <p><strong>Insurance Product:</strong> {{ insurance_application.insurance_product }}</p>
+            <p><strong>Insurance Agent:</strong> {{ insurance_application.insurance_agent }}</p>
+
+            <p><strong>Start Date:</strong> {{ insurance_application.insurance_start_date }}</p>
+            <p><strong>End Date:</strong> {{ insurance_application.insurance_end_date }}</p>
+
+            <p><strong>Policy Terms:</strong> {{ insurance_application.policy_terms|default:"—" }}</p>
+            <p><strong>Is Claimed:</strong> {{ insurance_application.is_claimed|yesno:"Yes,No" }}</p>
+
+            <p><strong>Renewal Reminder Sent:</strong> {{ insurance_application.renewal_reminder_sent|yesno:"Yes,No" }}</p>
+            <p><strong>Remarks:</strong> {{ insurance_application.remarks|default:"—" }}</p>
+
+            <p><strong>Created By:</strong> {{ insurance_application.created_by }}</p>
+            <p><strong>Updated By:</strong> {{ insurance_application.updated_by }}</p>
+
+            <p><strong>Created At:</strong> {{ insurance_application.created_at }}</p>
+            <p><strong>Updated At:</strong> {{ insurance_application.updated_at }}</p>
+
+            {% if insurance_application.insurance_certificate %}
+                <p class="col-span-2">
+                    <strong>Certificate:</strong>
+                    <a href="{{ insurance_application.insurance_certificate.url }}" class="text-blue-500 hover:underline" target="_blank">Download</a>
+                </p>
+            {% endif %}
+        </div>
+
+        <!-- Status Update Form -->
+        <div class="mt-8">
+            <form method="post" action="{% url 'insurance_company_service:update_insurance_status' insurance_application.id %}">
+                {% csrf_token %}
+                <label for="insurance_status" class="block mb-2 font-medium text-gray-700">Change Status:</label>
+                <div class="flex items-center gap-4">
+                        <select name="insurance_status" id="insurance_status" class="px-4 py-2 border rounded-lg w-full md:w-1/2">
+    {% for key, value in status_choices %}
+        <option value="{{ key }}" {% if key == insurance_application.insurance_status %}selected{% endif %}>{{ value }}</option>
+    {% endfor %}
+</select>
+                    <button type="submit" class="bg-black hover:bg-white hover:text-black text-white px-4 py-2 rounded-lg">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

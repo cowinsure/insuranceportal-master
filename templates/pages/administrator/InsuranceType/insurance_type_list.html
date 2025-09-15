@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Insurance Type List{% endblock %}
+
+{% block content %}
+            <div class="body-content px-8 py-8 bg-slate-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800">Insurance Type List</h2>
+                    <a href="{% url 'insurance_company_service:create_insurance_type' %}" class="tp-btn bg-theme text-white px-6 py-2 rounded-lg hover:bg-theme-dark transition-all">Create New Insurance Type</a>
+                </div>
+
+                <div class="overflow-x-auto shadow rounded-lg bg-white">
+                    <table class="w-full table-auto border-collapse">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">#</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Insurance Type Name</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Category</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Description</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for insurance_type in insurance_types %}
+                                <tr class="hover:bg-gray-50 border-b">
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ forloop.counter }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ insurance_type.name }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ insurance_type.category.name }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ insurance_type.description }}</td>
+                                    <td class="py-3 px-4 text-sm">
+                                        <a href="#" class="text-blue-500 hover:text-blue-700">Edit</a> |
+                                        <a href="#" class="text-red-500 hover:text-red-700">Delete</a>
+                                    </td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="py-3 px-4 text-center text-gray-500">No insurance types found.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+{% endblock content %}

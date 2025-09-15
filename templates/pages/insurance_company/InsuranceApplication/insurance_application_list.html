@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Insurance Application List{% endblock %}
+
+{% block content %}
+<div class="body-content px-4 sm:px-8 py-8 bg-slate-100 min-h-screen">
+    <div class="flex flex-col sm:flex-row justify-between items-center mb-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4 sm:mb-0">Insurance Application List</h2>
+    </div>
+
+    <div class="overflow-x-auto shadow rounded-lg bg-white">
+        <table class="w-full table-auto border-collapse min-w-[600px]">
+            <thead class="bg-gray-200">
+            <tr>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">#</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Application ID</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Status</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Actions</th>
+                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Payment Info</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for foo in insurance_application %}
+                <tr class="hover:bg-gray-50 border-b">
+                    <td class="py-3 px-4 text-sm text-gray-700">{{ forloop.counter }}</td>
+                    <td class="py-3 px-4 text-sm text-gray-700">{{ foo.insurance_number }}</td>
+                    <td class="py-3 px-4 text-sm">
+                        <span class="inline-block py-1 px-3 rounded-full text-sm text-black bg-gray-200">{{ foo.get_insurance_status_display }}</span>
+                    </td>
+                    <td class="py-3 px-4 text-sm">
+                        <a href="{% url 'insurance_company_service:view_insurance_application' foo.id %}"
+                           class="text-blue-600 hover:text-blue-800 transition">View</a>
+                    </td>
+                    <td class="py-3 px-4 text-sm flex items-center space-x-4">
+            
+                     <a href="{% url 'insurance_company_service:payments_by_insurance' foo.id %}"
+   class="text-green-600 hover:text-green-800 transition font-semibold rounded">
+   Payment Info
+</a>
+
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5" class="py-3 px-4 text-center text-gray-500">No insurance application found.</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+    Create User Module Access
+{% endblock title %}
+
+{% block content %}
+<div class="body-content px-6 py-8 bg-slate-100">
+    <div class="max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Create User Module Access</h1>
+
+        <form method="POST" enctype="{% url 'administrator_service:create_user_module_access' %}">
+            {% csrf_token %}
+            <!-- User Selection -->
+            <div class="flex flex-col">
+                <label for="user" class="text-sm font-medium text-gray-700">User:</label>
+                <select id="user" name="user" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                    {% for user in user %}
+                    <option value="{{ user.id }}">{{ user.mobile_number }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- Module Selection -->
+            <div class="flex flex-col">
+                <label for="module" class="text-sm font-medium text-gray-700">Module:</label>
+                <select id="module" name="module" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                  
+                    <option value="FARM">FARM</option>
+                    <option value="INSURANCE">INSURANCE</option>
+                </select>
+            </div> 
+            <br/>           
+            <button type="submit" class="w-full bg-black text-white py-3 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">Create Module Permission</button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a href="{% url 'administrator_service:user_module_access_list' %}" class="text-blue-500 hover:text-blue-600 text-sm">Back to User Module Access List</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

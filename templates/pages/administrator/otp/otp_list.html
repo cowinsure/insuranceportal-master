@@ -1,0 +1,47 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}OTP List{% endblock %}
+
+{% block content %}
+
+            <div class="body-content px-8 py-8 bg-slate-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800">OTP List</h2>
+                    <a href="{% url 'administrator_service:create_roles' %}" class="tp-btn bg-theme text-white px-6 py-2 rounded-lg hover:bg-theme-dark transition-all">Create New Role</a>
+                </div>
+
+                <div class="overflow-x-auto shadow rounded-lg bg-white">
+                    <table class="w-full table-auto border-collapse">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">#</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Created at</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Receiver</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">OTP</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Status</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Verified at</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for otp in otp %}
+                                <tr class="hover:bg-gray-50 border-b">
+                                <td class="py-3 px-4 text-sm text-gray-700">{{ forloop.counter }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ otp.created_at }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ otp.mobile_number }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ otp.otp_code }}</td>
+                                    <td class="py-3 px-4 text-sm">
+                                        {% if not otp.is_verified %}
+                                            <span class="inline-block py-1 px-3 rounded-full text-sm bg-green-500 text-black">Unused</span>
+                                        {% else %}
+                                            <span class="inline-block py-1 px-3 rounded-full text-sm bg-red text-black">Verified</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ otp.verified_at }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+{% endblock content %}

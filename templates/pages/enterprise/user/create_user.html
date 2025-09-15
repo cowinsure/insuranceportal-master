@@ -1,0 +1,148 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+    Create Farmer
+{% endblock title %}
+
+{% block content %}
+    <div class="tp-main-wrapper bg-slate-100 h-screen" x-data="{ sideMenu: false }">
+        {% include 'pages/base/sidebar.html' %}
+
+        <div class="tp-main-content lg:ml-[250px] xl:ml-[300px] w-[calc(100% - 300px)]" x-data="{ searchOverlay: false }">
+
+            {% include 'pages/base/header.html' %}
+
+            <div class="body-content px-6 py-8 bg-slate-100">
+                <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+                    <h1 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Create Farmer</h1>
+
+                    <form method="POST" enctype="multipart/form-data" class="space-y-6" action="{% url 'enterprise_service:create_farmer' %}">
+                        {% csrf_token %}
+
+                        <!-- Mobile Number and Password -->
+                        <div class="flex flex-col">
+                            <label for="mobile_number" class="text-sm font-medium text-gray-700">Mobile Number:</label>
+                            <input type="text" id="mobile_number" name="mobile_number" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="password" class="text-sm font-medium text-gray-700">Password:</label>
+                            <input type="password" id="password" name="password" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <!-- User Personal Info -->
+                        <div class="flex flex-col">
+                            <label for="first_name" class="text-sm font-medium text-gray-700">First Name:</label>
+                            <input type="text" id="first_name" name="first_name" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="last_name" class="text-sm font-medium text-gray-700">Last Name:</label>
+                            <input type="text" id="last_name" name="last_name" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="thana" class="text-sm font-medium text-gray-700">Thana:</label>
+                            <input type="text" id="thana" name="thana" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="union" class="text-sm font-medium text-gray-700">Union:</label>
+                            <input type="text" id="union" name="union" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="village" class="text-sm font-medium text-gray-700">Village:</label>
+                            <input type="text" id="village" name="village" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="zilla" class="text-sm font-medium text-gray-700">Zilla:</label>
+                            <input type="text" id="zilla" name="zilla" required class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="nid" class="text-sm font-medium text-gray-700">NID:</label>
+                            <input type="text" id="nid" name="nid" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="date_of_birth" class="text-sm font-medium text-gray-700">Date of Birth:</label>
+                            <input type="date" id="date_of_birth" name="date_of_birth" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="gender" class="text-sm font-medium text-gray-700">Gender:</label>
+                            <select id="gender" name="gender" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="tin" class="text-sm font-medium text-gray-700">TIN:</label>
+                            <input type="text" id="tin" name="tin" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="profile_image" class="text-sm font-medium text-gray-700">Profile Image:</label>
+                            <input type="file" id="profile_image" name="profile_image" class="px-4 py-2 mt-2 border rounded-lg">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="nid_front" class="text-sm font-medium text-gray-700">NID Front Image:</label>
+                            <input type="file" id="nid_front" name="nid_front" class="px-4 py-2 mt-2 border rounded-lg">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="nid_back" class="text-sm font-medium text-gray-700">NID Back Image:</label>
+                            <input type="file" id="nid_back" name="nid_back" class="px-4 py-2 mt-2 border rounded-lg">
+                        </div>
+
+                        <!-- User Financial Info -->
+                        <div class="flex flex-col">
+                            <label for="bank_name" class="text-sm font-medium text-gray-700">Bank Name:</label>
+                            <input type="text" id="bank_name" name="bank_name" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="branch_name" class="text-sm font-medium text-gray-700">Branch Name:</label>
+                            <input type="text" id="branch_name" name="branch_name" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="account_name" class="text-sm font-medium text-gray-700">Account Name:</label>
+                            <input type="text" id="account_name" name="account_name" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="account_number" class="text-sm font-medium text-gray-700">Account Number:</label>
+                            <input type="text" id="account_number" name="account_number" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <!-- User Nominee Info -->
+                        <div class="flex flex-col">
+                            <label for="nominee_name" class="text-sm font-medium text-gray-700">Nominee Name:</label>
+                            <input type="text" id="nominee_name" name="nominee_name" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="nominee_phone" class="text-sm font-medium text-gray-700">Nominee Phone:</label>
+                            <input type="text" id="nominee_phone" name="nominee_phone" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="nominee_email" class="text-sm font-medium text-gray-700">Nominee Email:</label>
+                            <input type="email" id="nominee_email" name="nominee_email" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+
+                        <div class="flex flex-col">
+                            <label for="nominee_nid" class="text-sm font-medium text-gray-700">Nominee NID:</label>
+                            <input type="text" id="nominee_nid" name="nominee_nid" class="px-4 py-2 mt-2 border rounded-lg focus:ring-2 focus:ring-indigo-500">
+                        </div>
+                        <button type="submit" class="w-full py-2 px-4 bg-black text-white rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 mt-4">Create User</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

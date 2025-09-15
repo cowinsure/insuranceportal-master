@@ -1,0 +1,40 @@
+{% extends '_base.html' %}
+{% block title %}Payment Info{% endblock %}
+
+{% block content %}
+<div class="body-content px-4 sm:px-8 py-8 bg-slate-100 min-h-screen">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow">
+        <h2 class="text-2xl font-semibold mb-6 text-gray-800">Payment Info for Insurance: {{ insurance.insurance_number }}</h2>
+
+        {% if payments %}
+            <div class="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
+                {% for payment in payments %}
+                    <div class="border rounded-lg p-4 shadow-sm bg-gray-50">
+                        <p><strong>Transaction ID:</strong> {{ payment.trx_id }}</p>
+                        <p><strong>Transaction Amount:</strong> {{ payment.amount }}</p>
+                        <p><strong>Date:</strong> {{ payment.trx_date }}</p>
+                        <p><strong>Type:</strong> {{ payment.trx_type }}</p>
+                        <p><strong>Through:</strong> {{ payment.trx_through }}</p>
+                        <p><strong>Remarks:</strong> {{ payment.remarks|default:"-" }}</p>
+                        <p><strong>Created By:</strong> {{ payment.created_by }}</p>
+{% for doc in payment.trx_documents.all %}
+  <div class="mt-2">
+    <img src="{{ doc.document.url }}" alt="Transaction Document" class="w-full max-w-xs rounded shadow border mb-2" />
+    <div>
+      <a href="{{ doc.document.url }}" download class="text-green-600 hover:underline">Download</a>
+    </div>
+  </div>
+{% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-gray-600">No payment records found for this insurance application.</p>
+        {% endif %}
+
+        <div class="mt-6">
+            <a href="{% url 'insurance_company_service:insurance_application_list' %}" class="text-blue-600 hover:underline">← Back to Insurance Applications</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

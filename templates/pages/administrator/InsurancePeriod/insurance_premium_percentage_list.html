@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+{% load static %}
+{% block title %}Premium Percentage List{% endblock %}
+
+{% block content %}
+            <div class="body-content px-8 py-8 bg-slate-100">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-800">Premium Percentage List</h2>
+                    <a href="{% url 'insurance_company_service:create_insurance_premium_percentage' %}" class="tp-btn bg-theme text-white px-6 py-2 rounded-lg hover:bg-theme-dark transition-all">Add Premium Percentage</a>
+                </div>
+
+                <div class="overflow-x-auto shadow rounded-lg bg-white">
+                    <table class="w-full table-auto border-collapse">
+                        <thead class="bg-gray-200">
+                            <tr>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">#</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Insurance Period</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Premium Percentage</th>
+                                <th class="py-3 px-4 text-left text-sm font-semibold text-gray-600">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for premium in premium_percentages %}
+                                <tr class="hover:bg-gray-50 border-b">
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ forloop.counter }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ premium.insurance_period.name }}</td>
+                                    <td class="py-3 px-4 text-sm text-gray-700">{{ premium.percentage }}%</td>
+                                    <td class="py-3 px-4 text-sm">
+                                        <a href="#" class="text-blue-500 hover:text-blue-700">Edit</a> |
+                                        <a href="#" class="text-red-500 hover:text-red-700">Delete</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+{% endblock content %}
